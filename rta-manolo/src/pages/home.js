@@ -34,7 +34,7 @@ const Home = () => {
     <>
        <Navbar />
       <div className='ContainerCss' >
-{/* 
+
         {show ? (
         <div>
           <div style={{backgroundColor:"white", width: "90%", height:"90%", position:"fixed", display:"flex", zIndex: 2, borderRadius: 30, marginTop: 70, marginLeft:"5rem"}}>
@@ -42,11 +42,11 @@ const Home = () => {
           </div>
           <div style={{backgroundColor:"black", width: "100%", height:"200%", position:"fixed", display:"flex", zIndex: 1, opacity: "60%"}}></div>
         </div>  
-        ) : null} */}
+        ) : null}
         
         <div className='InnerContainer'>
           <div>
-            <div style={{position:"absolute", display:"flex", marginLeft: "5rem", marginTop: "1rem"}}>
+            <div style={{position:"absolute", display:"flex", marginLeft: "5rem"}}>
               <img src={ProfilePic}></img>
             </div>
             <div style={{marginLeft: "15rem"}}>
@@ -60,8 +60,8 @@ const Home = () => {
             <ViolationCompile></ViolationCompile>
           </div>
         
-          <div>
-            <Button variant='contained' onClick={() => setShow(!show)} style={{height: 60, backgroundColor:'#64DAFF', display:"flex", position:"absolute", marginTop: 50, marginLeft:"77rem"}}>PROCEED TO TRANSACTION</Button> 
+          <div style={{position:"fixed", display:"absolute"}}>
+            <Button variant='contained' onClick={() => setShow(!show)} style={{height: 60, width: "10rem", backgroundColor:'#64DAFF', display:"flex", position:"absolute", marginTop: "45rem", marginLeft:"77rem"}}>PROCEED</Button> 
           </div>
               
         </div>
