@@ -20,14 +20,16 @@ export default function Navbar() {
           <CustomListItem to="/profile" icon={<PersonIcon style={{ fontSize: 40, marginLeft: "70%", color:"black" }}/>} />
         </div>
         <div style={{ padding: 10 }}>
-          <CustomListItem to="/" text="Logout" icon={<LogoutIcon />} />
+          <CustomListItem to="/" text="Logout" onclick={() => {
+            localStorage.removeItem('token')
+          }}  icon={<LogoutIcon />} />
         </div>
       </div>
     </div>
   );
 }
 
-function CustomListItem({ to, text, icon }) {
+function CustomListItem({ to, text, icon, onclick }) {
   const resolvedPath = useResolvedPath(to);
   const isActive = useMatch({ path: resolvedPath.pathname, end: true });
 
@@ -36,6 +38,7 @@ function CustomListItem({ to, text, icon }) {
       button
       component={Link}
       to={to}
+      onClick={onclick}
       className={isActive ? "active" : ""}
       style={{ backgroundColor: isActive ? "white" : "transparent", borderRadius: 40, padding: 30, width: "12rem"}}
     >

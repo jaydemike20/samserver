@@ -8,6 +8,7 @@ import History from "./pages/history.js";
 import ActivationPage from "./pages/activationpage.js";
 import Login from "./login/index.js";
 
+
 function PrivateRoute({ path, element }) {
   const isAuthenticated = false; // Replace with your authentication logic
 
@@ -15,7 +16,7 @@ function PrivateRoute({ path, element }) {
     return <Navigate to="/" replace />;
   }
 
-  return <Route path={path} element={element} />;
+  return <Route path="/home" element={<Home />} />;
 }
 
 function App() {

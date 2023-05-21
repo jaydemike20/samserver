@@ -10,9 +10,9 @@ import Images from './../Images/people.png'
 import { Button, TextField } from '@mui/material';
 import ForgotPass from './component/ForgotPass';
 import axios from 'axios'
+import { useEffect } from 'react';
 
-
-function Login() {
+function Login({ setIsAuthenticated }) {
   const navigation = useNavigate()
   const [activeTab, setActiveTab] = useState('SignIn');
   const [show, setShow] = useState(false)
@@ -35,6 +35,7 @@ function Login() {
 
       localStorage.setItem('token', response.data.auth_token)
       console.log(data)
+      setIsAuthenticated(true)      
       navigation("/home")
 
     }).catch(error => {
@@ -74,7 +75,14 @@ function Login() {
 
 
   }
-
+  // Check if the user is already authenticated
+  useEffect(() => {
+    const isAuthenticated = localStorage.getItem('token');
+    if (isAuthenticated) {
+      setIsAuthenticated(true);
+      navigation("/home");
+    }
+  }, [setIsAuthenticated, navigation]);
 
     return (
       <div>
@@ -302,9 +310,6 @@ function Login() {
       </div>
       );
     }
-
-
-
 
 export default Login;
 
