@@ -1,5 +1,5 @@
 import { Close, LocationOnOutlined } from '@material-ui/icons';
-import { Button } from '@mui/material';
+import { Button, selectClasses } from '@mui/material';
 import { useState } from 'react';
 import React from 'react';
 import InputBox from '../../login/component/InputBox';
@@ -12,15 +12,68 @@ import ID from './options/ID.json'
 import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
 import {TextField} from '@material-ui/core';
 import Fine from './options/Fine.json'
+import axios from 'axios';
+
 
 function Form({props, onClick, RecordViolation}) {
+
 
     const [driver, setDriver] = useState(true);
     const [violation, setViolation] = useState(false);
     const [citation, setCitation] = useState(false);
 
 
+    const [driverInfo, setDriverInfo] = useState({
+        "license_number": "",
+        "birthday": "",
+        "first_name": "",
+        "last_name": "",
+        "address": "",
+        "email": "",
+        "mobile_number": "",
+        "gender": "",
+        "status": "",
+        "nationality": ""
+    })
 
+    const [ticket, setTicket] = useState({
+        "location": "try",
+        "violation_type": "wala man",
+        "fine_amount": 122.24,
+        "remarks": "Please be reminded to abide by traffic rules and regulations to ensure road safety. Have a safe journey ahead.",
+        "driver": driverInfo.license_number
+    })
+
+
+    const handleGenderChange = (selectedOption) => {
+        setDriverInfo({
+            ...driverInfo,
+            gender: selectedOption.value
+        });
+
+    }
+
+    const handleStatusChange = (selectedOption) => {
+        setDriverInfo({
+            ...driverInfo,
+            status: selectedOption.value
+        });
+
+    }    
+    const handleDateChange = (selectedDate) => {
+        console.log(selectedDate);
+        setDriverInfo({
+          ...driverInfo,
+          birthday: selectedDate.target.value
+        });
+      };
+
+    const handleNationalityChange = (selectedOption) => {
+        setDriverInfo({
+          ...driverInfo,
+          nationality: selectedOption.value
+        });
+    };        
 
     return (
         <div>
@@ -28,7 +81,7 @@ function Form({props, onClick, RecordViolation}) {
             <div style={{margin: 20}}>
                 <Button onClick={onClick}><Close></Close></Button>
             </div>
-            
+            {/* driver ni nga model */}
             {driver ? (
                     <>
                         <div style={{width:"107rem", display:"flex", justifyContent:"center"}}>
@@ -37,43 +90,70 @@ function Form({props, onClick, RecordViolation}) {
                     
                         <div style={{display:"flex", position:"absolute", marginLeft: "7rem", flexDirection:"row"}}>
                             <div style={{marginRight: 20}}>
-                                <InputBox label="First Name"></InputBox>
+                                <InputBox label="First Name" value={driverInfo.first_name} onChange={(event) => {
+                                    setDriverInfo({
+                                        ...driverInfo, first_name: event.target.value
+                                    })
+                                }}></InputBox>
                             </div>
                             <div style={{marginRight: 20}}>
-                                <InputBox label="Last Name"></InputBox>
+                                <InputBox label="Last Name" value={driverInfo.last_name} onChange={(event) => {
+                                    setDriverInfo({
+                                        ...driverInfo, last_name: event.target.value
+                                    })
+                                }}></InputBox>
                             </div>
                             <div style={{marginRight: 20}}>
-                                <InputBox label="Address"></InputBox>
+                            <InputBox label="Address" value={driverInfo.address} onChange={(event) => {
+                                    setDriverInfo({
+                                        ...driverInfo, address: event.target.value
+                                    })
+                                }}></InputBox>
                             </div>
                         </div>
                         <div style={{display:"flex", position:"absolute", marginLeft: "7rem", flexDirection:"row", marginTop: "7rem"}}>
                             <div style={{marginRight: 20}}>
-                                <InputBox label="Email"></InputBox>
+                            <InputBox label="Email" type="email" value={driverInfo.email} onChange={(event) => {
+                                    setDriverInfo({
+                                        ...driverInfo, email: event.target.value
+                                    })
+                                }}></InputBox>
                             </div>
                             <div style={{marginRight: 20}}>
-                                <InputBox label="Mobile Number" type="number"></InputBox>
+                            <InputBox label="Mobile Number"                            
+                            type="number" 
+                            value={driverInfo.mobile_number} 
+                            onChange={(event) => {
+                                    setDriverInfo({
+                                        ...driverInfo, mobile_number: event.target.value
+                                    })
+                                }}></InputBox>
                             </div>
                             <div style={{marginRight: 20}}>
-                                <SelectProps options={Gender} placeholder="Gender"></SelectProps>
+                                <SelectProps options={Gender} placeholder="Gender" onchange={handleGenderChange}></SelectProps>
                             </div>
                         </div>
                         <div style={{display:"flex", position:"absolute", marginLeft: "7rem", flexDirection:"row", marginTop: "14rem"}}>
                             <div style={{marginRight: 20}}>
-                                <SelectProps options={Status} placeholder="Status"></SelectProps>
+                                <SelectProps options={Status} placeholder="Status" onchange={handleStatusChange}></SelectProps>
                             </div>
                             <div style={{marginRight: 20}}>
-                                <SelectDate></SelectDate>
+                                <SelectDate onChange={handleDateChange}></SelectDate>
                             </div>
                             <div style={{marginRight: 20}}>
-                                <SelectProps options={Nationality} placeholder="Nationality"></SelectProps>
+                                <SelectProps options={Nationality} onchange={handleNationalityChange} placeholder="Nationality"></SelectProps>
                             </div>
                         </div>
                         <div style={{display:"flex", position:"absolute", marginLeft: "7rem", flexDirection:"row", marginTop: "21rem"}}>
+                            {/* <div style={{marginRight: 20}}>
+                                <SelectProps options={ID}  placeholder="ID Type"></SelectProps>
+                            </div> */}
                             <div style={{marginRight: 20}}>
-                                <SelectProps options={ID} placeholder="ID Type"></SelectProps>
-                            </div>
-                            <div style={{marginRight: 20}}>
-                                <InputBox label="ID Number" type="number"></InputBox>
+                            <InputBox label="License Number" value={driverInfo.license_number} onChange={(event) => {
+                                    setDriverInfo({
+                                        ...driverInfo, license_number: event.target.value
+                                    })
+                                }}></InputBox>
                             </div>
                         </div>
 
@@ -82,7 +162,39 @@ function Form({props, onClick, RecordViolation}) {
                                 <Button variant='contained' style={{ height: '55px', width: "15rem", backgroundColor: "red" }}>CLEAR</Button>                    
                             </div>
                             <div style={{marginRight: 20}}>
-                                <Button variant='contained' onClick={() => setDriver(!driver) & setViolation(!violation)} style={{ height: '55px', width: "15rem", backgroundColor: "#64DAFF" }}>PROCEED</Button>                    
+                                <Button variant='contained' onClick={() => {
+
+                                    // get token 
+                                    const token = localStorage.getItem('token')
+                                    // axios.post('http://localhost:8000/api/v1/tickets/drivers/', driverInfo, {
+                                    //     headers:{
+                                    //         "Authorization": `Token ${token}`
+                                    //     },
+                                    // }).then((response) => {
+                                    //     alert("Successfully added")
+                                    //     setDriverInfo({
+                                    //         "license_number": "",
+                                    //         "birthday": "",
+                                    //         "first_name": "",
+                                    //         "last_name": "",
+                                    //         "address": "",
+                                    //         "email": "",
+                                    //         "mobile_number": "",
+                                    //         "gender": "",
+                                    //         "status": "",
+                                    //         "nationality": ""
+                                    //     })
+                                    //     setDriver(!driver);
+                                    //     setViolation(!violation);
+                                    // }).catch((error) => {
+                                    //     console.log(error.response.data)                                      
+                                    // })
+                                    setDriver(!driver)
+                                    setViolation(!violation)
+
+
+
+                                }} style={{ height: '55px', width: "15rem", backgroundColor: "#64DAFF" }}>PROCEED</Button>                    
                             </div>
                         </div>
                     </>
@@ -98,6 +210,13 @@ function Form({props, onClick, RecordViolation}) {
                         </div>
                         <div style={{display:"flex", position:"absolute", marginLeft: "23rem", flexDirection:"row", marginTop: "12rem"}}>
                             <div style={{marginRight: 20}}>
+                                <InputBox label="License Number" disabled={true} value={driverInfo.license_number} onChange={(event) => {
+                                        setDriverInfo({
+                                            ...driverInfo, license_number: event.target.value
+                                        })
+                                    }}></InputBox>
+                                </div>                            
+                            <div style={{marginRight: 20}}>
                                 <TextField style={{width: "61rem", justifyContent:"center"}} variant='outlined' label="Location" className='InputLocation'
                                 />
                                     <div style={{zIndex:3, marginTop: -54,  marginLeft: "63rem"}}>
@@ -109,7 +228,7 @@ function Form({props, onClick, RecordViolation}) {
                                     <SelectProps options={Fine} placeholder="Fine Amount"></SelectProps>
                                 </div>
                                 <div style={{marginRight: 20}}>
-                                <TextField style={{width: "29.6rem"}} disabled variant='outlined' label="Remarks" defaultValue="Please be reminded to abide by traffic rules and regulations to ensure road safety. Have a safe journey ahead."
+                                <TextField style={{width: "29.6rem"}} disabled variant='outlined' label="Remarks" defaultValue=""
                                 />
                                 </div>
                             </div>

@@ -3,7 +3,7 @@ import { Box, TextField } from '@material-ui/core';
 
 
 
-function SelectDate({label,InputProps, id, type}) {
+function SelectDate({label,InputProps, id, type, onChange, value}) {
   return (
     <div>
       <div>
@@ -13,6 +13,8 @@ function SelectDate({label,InputProps, id, type}) {
                 InputProps={InputProps}
                 className='InputLogin'
                 type="date"
+                onChange={onChange}
+                value={value}
             />
         </div>
     </div>

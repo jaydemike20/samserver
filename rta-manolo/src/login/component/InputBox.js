@@ -2,7 +2,7 @@ import { TextField, colors } from '@mui/material';
 import React from 'react';
 import './css/index.css';
 
-function InputBox({value, onChange, label, InputProps, type, defaultValue, placeholder, helperText, disabled}) {
+function InputBox({value, onChange, label, InputProps, type, defaultValue, placeholder, helperText, disabled, title}) {
     
     return (
         <div>
@@ -18,7 +18,7 @@ function InputBox({value, onChange, label, InputProps, type, defaultValue, place
                 disabled={disabled}
                 value={value}
                 onChange={onChange}
-
+                title={title}
             />
         </div>
     );
