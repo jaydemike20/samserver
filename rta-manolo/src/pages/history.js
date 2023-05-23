@@ -1,61 +1,124 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../Navbar';
 import './css/home.css'
 import Chart from './components/Chart';
 import Legend from './components/Legend';
 import TotalViolation from './components/TotalViolation';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import axios from 'axios';
 
 function History(props) {
-    return (
-        <div>
-            <Navbar></Navbar>
-            <div  className='ContainerCss' >
+  const token = localStorage.getItem('token');
+  const [violators, setViolators] = useState([]);
 
-                <div className='InnerContainer'>
-                    <div style={{marginLeft: "4rem"}}>
-                        <div style={{fontSize:"10px", flexDirection:"row", display:"flex", position:"absolute", borderRadius: 30, marginTop: -55, marginLeft: 55}}>                            <div>
-                                <Legend styleCategory={{color:"#008FFB"}} title="LTO Violation fee relative to Licensing"></Legend>
-                            </div>
-                            <div>
-                                <Legend styleCategory={{color:"#00E396"}} title="LTO Fines and Penalties connected with car registration/renewal"></Legend>
-                            </div>
-                            <div>
-                                <Legend styleCategory={{color:"#FEB019"}} title="LTO Fines and Penalties in connection with vehicles accessories, equipment, parts"></Legend>
-                            </div>
-                            <div>
-                                <Legend styleCategory={{color:"#FF4560"}} title="Traggic Violation Notice for Unattended Vehicle"></Legend>
-                            </div>
-                        </div>
+//   useEffect(() => {
+//     axios.get("http://localhost:8000/api/v1/tickets/traffictickets/", {
+//       headers: {
+//         "Authorization": `Token ${token}`
+//       }
+//     }).then(response => {
+//         setViolators(response.data)
+//         console.log(response.data)
+//     });
+//   }, []);
+  
+useEffect(() => {
+    axios.get("http://localhost:8000/api/v1/tickets/traffictickets/", {
+      headers: {
+        "Authorization": `Token ${token}`
+      }
+    })
+      .then(response => {
+        console.log("Traffic Tickets:", response.data);
+        const trafficTickets = response.data;
+  
+        // Extract the unique driver primary keys
+        const driverPKs = [...new Set(trafficTickets.map(violator => violator.driver))];
+  
+        // Create an array to store the driver information
+        const driversData = [];
+  
+        // Fetch driver information for each primary key
+        Promise.all(
+          driverPKs.map(pk =>
+            axios.get(`http://localhost:8000/api/v1/tickets/drivers/${pk}/`, {
+              headers: {
+                "Authorization": `Token ${token}`
+              }
+            }).then(response => response.data) // Extract driver data from the response
+          )
+        )
+          .then(responses => {
+            // Map the driver data with their respective primary keys
+            driversData.push(...responses);
 
-                        <div style={{height:"20rem", width:"55rem", backgroundColor:"white", borderRadius: 20, marginLeft: "30rem"}}>
-                            <div  style={{marginTop: 20}}>
-                                <Chart></Chart>
-                            </div>
-                        </div>
-                        <div>
-                            <div style={{flexDirection:"column", backgroundColor:"white", display:"flex", position:"absolute", width: "29rem", height:"22.2rem", borderRadius: 30, marginTop: "-20rem", padding: 10}}>
-                                <div style={{alignSelf: "center"}}>
-                                    <h1>TOTAL VIOLATIONS</h1>
-                                </div>
-                                <div style={{alignSelf: "center", marginTop:"-70px"}}>
-                                    <h1 style={{fontSize: "8rem"}}>230</h1>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+  
+            // Map the traffic tickets with the corresponding driver information
+            const updatedViolators = trafficTickets.map(violator => {
+              const driver = driversData.find(driver => driver.license_number === violator.driver);
+  
+              return {
+                ...violator,
+                driverFirstName: driver ? driver.first_name : "",
+                driverLastName: driver ? driver.last_name : ""
+              };
+            });
+  
+            // Update the state with the updated violators array
+            setViolators(updatedViolators);
 
-                    <div style={{backgroundColor:"#D9F3FF", boxShadow:"1px 1px 34px 1px #75D4FF", display:"flex", position:"absolute", width: "94rem", height: 60, justifyContent: "center", marginTop: "27rem"}}>
-                        <h3>TRACK RECORD</h3>
-                    </div>
-                    <div style={{backgroundColor:"white", width:"94rem", height:"30rem", display:"flex", position:"absolute", marginTop: "35rem", borderRadius: 20, padding: 30, flexDirection:"column"}}>
-                        <div style={{marginBottom: 50}}><TotalViolation></TotalViolation></div>
-                        <div style={{marginBottom: 50}}><TotalViolation></TotalViolation></div>
-                        <div style={{marginBottom: 50}}><TotalViolation></TotalViolation></div>
-                        <div style={{marginBottom: 50}}><TotalViolation></TotalViolation></div>
-                        <div style={{marginBottom: 50}}><TotalViolation></TotalViolation></div>
-                    </div>
-                </div>
-            </div>
+          })
+          .catch(error => {
+            // Handle errors
+            console.error("Error fetching driver information:", error);
+          });
+      })
+      .catch(error => {
+        // Handle errors
+        console.error("Error fetching traffic tickets:", error);
+      });
+  }, []);
+  
+  
+  return (
+    <div>
+      <Navbar></Navbar>
+      <div className='ContainerCss'>
+        <div className='InnerContainer'>
+          <div style={{ backgroundColor: "#D9F3FF", boxShadow: "1px 1px 34px 1px #75D4FF", display: "flex", position: "absolute", width: "94rem", height: 60, justifyContent: "center", marginTop: "0" }}>
+            <h3>TRACK RECORD</h3>
+          </div>
+          <div style={{ backgroundColor: "white", width: "94rem", height: "30rem", display: "flex", position: "absolute", marginTop: "5rem", borderRadius: 20, padding: 30, flexDirection: "column" }}>
+            <TableContainer>
+              <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell >Driver's Name</TableCell>
+                    <TableCell align="center">License Number</TableCell>
+                    <TableCell align="center">Violation Type</TableCell>
+                    <TableCell align="center">Remarks</TableCell>
+                    <TableCell align="center">Issued Date & Time</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {violators.map((violator, index) => (
+                    <TableRow key={index}>
+                    <TableCell component="th" scope="row">
+                    {`${violator.driverFirstName} ${violator.driverLastName}`}
+                    </TableCell>
+                      <TableCell align="center">{violator.driver}</TableCell>
+                      <TableCell align="center">{violator.violation_type}</TableCell>
+                      <TableCell align="center">{violator.remarks}</TableCell>
+                      <TableCell align="center">{violator.issued}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </div>
+        </div>
+      </div>
+
             
         </div>
     );
