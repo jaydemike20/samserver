@@ -10,10 +10,10 @@ import SelectDate from './SelectDate';
 import Nationality from './options/Nationality.json'
 import ID from './options/ID.json'
 import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
-import {TextField} from '@material-ui/core';
+import {Input, TextField} from '@material-ui/core';
 import Fine from './options/Fine.json'
 import axios from 'axios';
-
+import { useEffect } from 'react';
 
 function Form({props, onClick, RecordViolation}) {
 
@@ -21,6 +21,7 @@ function Form({props, onClick, RecordViolation}) {
     const [driver, setDriver] = useState(true);
     const [violation, setViolation] = useState(false);
     const [citation, setCitation] = useState(false);
+    const [selectedFineAmount, setSelectedFineAmount] = useState('');
 
 
     const [driverInfo, setDriverInfo] = useState({
@@ -36,10 +37,20 @@ function Form({props, onClick, RecordViolation}) {
         "nationality": ""
     })
 
+
+    const selectTicket = localStorage.getItem('selectedViolations')
+
+    useEffect(() => {
+        setTicket(prevTicket => ({
+          ...prevTicket,
+          driver: driverInfo.license_number
+        }));
+      }, [driverInfo.license_number]);
+      
     const [ticket, setTicket] = useState({
-        "location": "try",
-        "violation_type": "wala man",
-        "fine_amount": 122.24,
+        "location": "",
+        "violation_type": selectTicket,
+        "fine_amount": 0,
         "remarks": "Please be reminded to abide by traffic rules and regulations to ensure road safety. Have a safe journey ahead.",
         "driver": driverInfo.license_number
     })
@@ -166,35 +177,24 @@ function Form({props, onClick, RecordViolation}) {
 
                                     // get token 
                                     const token = localStorage.getItem('token')
-                                    // axios.post('http://localhost:8000/api/v1/tickets/drivers/', driverInfo, {
-                                    //     headers:{
-                                    //         "Authorization": `Token ${token}`
-                                    //     },
-                                    // }).then((response) => {
-                                    //     alert("Successfully added")
-                                    //     setDriverInfo({
-                                    //         "license_number": "",
-                                    //         "birthday": "",
-                                    //         "first_name": "",
-                                    //         "last_name": "",
-                                    //         "address": "",
-                                    //         "email": "",
-                                    //         "mobile_number": "",
-                                    //         "gender": "",
-                                    //         "status": "",
-                                    //         "nationality": ""
-                                    //     })
-                                    //     setDriver(!driver);
-                                    //     setViolation(!violation);
-                                    // }).catch((error) => {
-                                    //     console.log(error.response.data)                                      
-                                    // })
-                                    setDriver(!driver)
-                                    setViolation(!violation)
+                                    axios.post('http://localhost:8000/api/v1/tickets/drivers/', driverInfo, {
+                                        headers:{
+                                            "Authorization": `Token ${token}`
+                                        },
+                                    }).then((response) => {
+                                        alert("Successfully added")
+                                        setDriver(!driver);
+                                        setViolation(!violation);
+                                    }).catch((error) => {
+                                        console.log(error.response.data)  
+                                        alert("Please Try Again")                                    
+                                    })
+                                    // setDriver(!driver)
+                                    // setViolation(!violation)
 
 
 
-                                }} style={{ height: '55px', width: "15rem", backgroundColor: "#64DAFF" }}>PROCEED</Button>                    
+                                }} style={{ height: '55px', width: "15rem", backgroundColor: "#64DAFF" }}>NEXT</Button>                    
                             </div>
                         </div>
                     </>
@@ -210,35 +210,83 @@ function Form({props, onClick, RecordViolation}) {
                         </div>
                         <div style={{display:"flex", position:"absolute", marginLeft: "23rem", flexDirection:"row", marginTop: "12rem"}}>
                             <div style={{marginRight: 20}}>
-                                <InputBox label="License Number" disabled={true} value={driverInfo.license_number} onChange={(event) => {
-                                        setDriverInfo({
-                                            ...driverInfo, license_number: event.target.value
-                                        })
-                                    }}></InputBox>
+                                <InputBox label="License Number" disabled={true} value={driverInfo.license_number}></InputBox>
                                 </div>                            
                             <div style={{marginRight: 20}}>
-                                <TextField style={{width: "61rem", justifyContent:"center"}} variant='outlined' label="Location" className='InputLocation'
+                                <TextField style={{width: "29.6rem", justifyContent:"center"}} variant='outlined' label="Location" className='InputLocation'
+                                value={ticket.location} onChange={(event) => {
+
+                                    setTicket({
+                                        ...ticket, location: event.target.value
+                                    })
+
+                                }}
                                 />
-                                    <div style={{zIndex:3, marginTop: -54,  marginLeft: "63rem"}}>
+                                    <div style={{zIndex:3, marginTop: -54,  marginLeft: "26rem"}}>
                                         <Button startIcon={<AddLocationAltIcon style={{ marginLeft: 10, padding: 5, fontSize: 40, color:"white", backgroundColor:"#64DAFF", borderRadius: 20}} ></AddLocationAltIcon>}></Button>
                                     </div>
                             </div>
                                 <div style={{display:"flex", position:"absolute", flexDirection:"row", marginTop: "7rem"}}>
                                 <div style={{marginRight: 20}}>
-                                    <SelectProps options={Fine} placeholder="Fine Amount"></SelectProps>
+                                <InputBox label="Fines" type="number" value={ticket.fine_amount} onChange={(event) => {
+
+                                    setTicket({
+                                        ...ticket, fine_amount: event.target.value
+                                    })
+
+                                }}></InputBox>
+                                </div>   
+                                <div style={{marginRight: 20}}>
+                                <InputBox style={{width: "29.6rem"}} disabled variant='outlined' label="Remarks" value={ticket.remarks}></InputBox>
                                 </div>
                                 <div style={{marginRight: 20}}>
-                                <TextField style={{width: "29.6rem"}} disabled variant='outlined' label="Remarks" defaultValue=""
-                                />
-                                </div>
-                            </div>
+                                <InputBox style={{width: "29.6rem"}} disabled variant='outlined' label="Violation Type" value={selectTicket}></InputBox>
+                                </div> 
+                            </div> 
+
+
                         </div>
                         <div style={{display:"flex", position:"absolute", marginLeft: "38rem", flexDirection:"row", marginTop: "35rem",}}>
                             <div style={{marginRight: 20}}>
                                 <Button variant='contained' style={{ height: '55px', width: "15rem", backgroundColor: "rgb(50, 168, 137)"}} onClick={() => setViolation(!violation) & setDriver(!driver)}>BACK</Button>                    
                             </div>
                             <div style={{marginRight: 20}}>
-                                <Button variant='contained' onClick={onClick} style={{ height: '55px', width: "15rem", backgroundColor: "#64DAFF" }}>PROCEED</Button>                    
+                                <Button variant='contained' onClick={()=> {
+                                    const token = localStorage.getItem('token')
+
+                                    axios.post('http://localhost:8000/api/v1/tickets/traffictickets/', ticket, {
+                                        headers: {
+                                            Authorization: `Token ${token}`
+                                        },
+                                    }).then((response) => {
+                                        alert('Successfully Issued Ticket')
+                                        console.log(response.data)
+                                        setDriverInfo({
+                                            "license_number": "",
+                                            "birthday": "",
+                                            "first_name": "",
+                                            "last_name": "",
+                                            "address": "",
+                                            "email": "",
+                                            "mobile_number": "",
+                                            "gender": "",
+                                            "status": "",
+                                            "nationality": ""
+                                        })
+                                        setTicket({
+                                            "location": "",
+                                            "violation_type": {selectTicket},
+                                            "fine_amount": '',
+                                            "remarks": "Please be reminded to abide by traffic rules and regulations to ensure road safety. Have a safe journey ahead.",
+                                            "driver": driverInfo.license_number                                            
+                                        }) 
+                                        window.location.reload()                                     
+                                    }).catch((error) => {
+                                        console.log(error.response.data)
+                                    })
+                                    console.log(ticket)
+
+                                }} style={{ height: '55px', width: "15rem", backgroundColor: "#64DAFF" }}>PROCEED</Button>                    
                             </div>
                         </div>
                     </>

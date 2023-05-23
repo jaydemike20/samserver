@@ -9,9 +9,6 @@ import axios from 'axios';
 
 const Home = () => {
 
-
-
-
   // get token
     const token = localStorage.getItem('token')
 
@@ -30,6 +27,13 @@ const Home = () => {
 
   const [show, setShow] = useState(false)
 
+
+
+
+
+
+
+  
   return (
     <>
        <Navbar />
@@ -58,6 +62,7 @@ const Home = () => {
 
           <div style={{marginLeft:"-30rem"}}>
             <ViolationCompile></ViolationCompile>
+    
           </div>
         
           <div style={{position:"fixed", display:"absolute"}}>

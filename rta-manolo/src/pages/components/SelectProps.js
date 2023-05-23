@@ -14,7 +14,7 @@ const customStyles = {
   }),
 };
 
-function SelectProps({ props, placeholder, options, onchange }) {
+function SelectProps({ props, placeholder, options, onchange}) {
   return (
     <div>
       <Select placeholder={placeholder} options={options} styles={customStyles} onChange={onchange}></Select>
