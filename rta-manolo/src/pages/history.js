@@ -90,7 +90,7 @@ useEffect(() => {
           </div>
           <div style={{ backgroundColor: "white", width: "94rem", height: "30rem", display: "flex", position: "absolute", marginTop: "5rem", borderRadius: 20, padding: 30, flexDirection: "column" }}>
             <TableContainer>
-              <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <Table sx={{ minWidth: 650}} aria-label="simple table">
                 <TableHead>
                   <TableRow>
                     <TableCell >Driver's Name</TableCell>
@@ -101,7 +101,7 @@ useEffect(() => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {violators.map((violator, index) => (
+                  {violators.slice().reverse().map((violator, index) => (
                     <TableRow key={index}>
                     <TableCell component="th" scope="row">
                     {`${violator.driverFirstName} ${violator.driverLastName}`}

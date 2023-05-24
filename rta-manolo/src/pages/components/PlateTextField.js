@@ -1,16 +1,20 @@
 import React from 'react';
-import { TextField } from '@mui/material';
+import { Input } from '@mui/material';
 
-function PlateTextField(props) {
+function PlateTextField({value, onChange}) {
     return (
         <div>
             <div style={{position:"absolute", display:"flex"}}>
-                <TextField type='number' className='PlateNumber' style={{width:"14rem"}}/>
-                    <div style={{fontSize:"3rem", marginTop: "-7rem"}}><h1>-</h1></div>
+                <Input  className='PlateNumber' style={{width:"30rem"}} value={value} onChange={onChange} />
+                    {/* <div style={{fontSize:"3rem", marginTop: "-7rem"}}><h1>-</h1></div>
                 <TextField type='number' className='PlateNumber' style={{width:"13.5rem"}}></TextField>
+                    <div style={{fontSize:"3rem", marginTop: "-7rem"}}><h1>-</h1></div>
+                <TextField type='number' className='PlateNumber' style={{width:"13.5rem"}}></TextField> */}
+
             </div>
         </div>
     );
 }
 
 export default PlateTextField;
+
