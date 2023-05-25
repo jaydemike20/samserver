@@ -8,6 +8,9 @@ import C2 from './../../Images/V2.png'
 import C3 from './../../Images/V3.png'
 import C4 from './../../Images/V4.png'
 import CheckBoxes from './CheckBoxes';
+import { Icon } from '@mui/material';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCar } from '@fortawesome/free-solid-svg-icons';
 
 
 function ViolationCompile(props) {
@@ -43,7 +46,7 @@ function ViolationCompile(props) {
                 <div style={{padding: 20, backgroundColor:"white", borderRadius: 10, boxShadow: "1px 1px 10px 1px  rgba(97, 167, 191, 0.5)", width: "25%", height: containerHeight, position:"fixed", marginLeft:"37%"}}>
                   <div><h3 style={{textAlign:"center"}}>Selected Violations:</h3></div>
                         {selectedViolations.map((violation, index) => (
-                          <div style={{marginBottom: 15}} key={index}>{violation}</div>
+                          <div style={{marginBottom: 15, fontSize: 17}} key={index}>{<FontAwesomeIcon style={{marginRight: 10, color: "red"}} icon={faCar}></FontAwesomeIcon>}{violation}</div>
                         ))}
                 </div>
                 <div>

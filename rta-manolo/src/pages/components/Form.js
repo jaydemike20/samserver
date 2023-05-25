@@ -14,6 +14,7 @@ import {Input, TextField} from '@material-ui/core';
 import Fine from './options/Fine.json'
 import axios from 'axios';
 import { useEffect } from 'react';
+import styled from '@emotion/styled';
 
 function Form({props, onClick, RecordViolation}) {
 
@@ -145,7 +146,7 @@ function Form({props, onClick, RecordViolation}) {
                             </div>
                         </div>
                         <div style={{display:"flex", position:"absolute", marginLeft: "7rem", flexDirection:"row", marginTop: "14rem"}}>
-                            <div style={{marginRight: 20}}>
+                            <div style={{marginRight: 20, zIndex: 2}}>
                                 <SelectProps options={Status} placeholder="Status" onchange={handleStatusChange}></SelectProps>
                             </div>
                             <div style={{marginRight: 20}}>
@@ -176,19 +177,19 @@ function Form({props, onClick, RecordViolation}) {
                                 <Button variant='contained' onClick={() => {
 
                                     // get token 
-                                    const token = localStorage.getItem('token')
-                                    axios.post('http://localhost:8000/api/v1/tickets/drivers/', driverInfo, {
-                                        headers:{
-                                            "Authorization": `Token ${token}`
-                                        },
-                                    }).then((response) => {
-                                        alert("Successfully added")
-                                        setDriver(!driver);
-                                        setViolation(!violation);
-                                    }).catch((error) => {
-                                        console.log(error.response.data)  
-                                        alert("Please Try Again")                                    
-                                    })
+                                    // const token = localStorage.getItem('token')
+                                    // axios.post('http://localhost:8000/api/v1/tickets/drivers/', driverInfo, {
+                                    //     headers:{
+                                    //         "Authorization": `Token ${token}`
+                                    //     },
+                                    // }).then((response) => {
+                                    //     alert("Successfully added")
+                                    //     setDriver(!driver);
+                                    //     setViolation(!violation);
+                                    // }).catch((error) => {
+                                    //     console.log(error.response.data)  
+                                    //     alert("Please Try Again")                                    
+                                    // })
                                     // setDriver(!driver)
                                     // setViolation(!violation)
 
@@ -226,7 +227,7 @@ function Form({props, onClick, RecordViolation}) {
                                         <Button startIcon={<AddLocationAltIcon style={{ marginLeft: 10, padding: 5, fontSize: 40, color:"white", backgroundColor:"#64DAFF", borderRadius: 20}} ></AddLocationAltIcon>}></Button>
                                     </div>
                             </div>
-                                <div style={{display:"flex", position:"absolute", flexDirection:"row", marginTop: "7rem"}}>
+                            <div style={{display:"flex", position:"absolute", flexDirection:"row", marginTop: "7rem"}}>
                                 <div style={{marginRight: 20}}>
                                 <InputBox label="Fines" type="number" value={ticket.fine_amount} onChange={(event) => {
 
@@ -239,9 +240,9 @@ function Form({props, onClick, RecordViolation}) {
                                 <div style={{marginRight: 20}}>
                                 <InputBox style={{width: "29.6rem"}} disabled variant='outlined' label="Remarks" value={ticket.remarks}></InputBox>
                                 </div>
-                                <div style={{marginRight: 20}}>
+                            </div> 
+                            <div style={{marginRight: 20, position:"absolute", display:"flex", marginTop: "14rem"}}>
                                 <InputBox style={{width: "29.6rem"}} disabled variant='outlined' label="Violation Type" value={selectTicket}></InputBox>
-                                </div> 
                             </div> 
 
 
