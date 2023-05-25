@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Checkbox } from '@mui/material';
 
-function CheckBoxes({title}) {
+function CheckBoxes({title, value, onChange}) {
   const [checked, setChecked] = useState(false);
 
   const handleCheck = () => {
@@ -14,6 +14,8 @@ function CheckBoxes({title}) {
             <Checkbox
             checked={checked}
             onClick={handleCheck}
+            value={value}
+            onChange={onChange}
             sx={{
                 color:"#88e3ff",
             '&.Mui-checked': {

@@ -66,7 +66,7 @@ const Home = () => {
           </div>
         
           <div style={{position:"fixed", display:"absolute"}}>
-            <Button variant='contained' onClick={() => setShow(!show)} style={{height: 60, width: "10rem", backgroundColor:'#64DAFF', display:"flex", position:"absolute", marginTop: "45rem", marginLeft:"77rem"}}>PROCEED</Button> 
+            <Button variant='contained' onClick={() => setShow(!show)} style={{height: 60, width: "10rem", backgroundColor:'#64DAFF', display:"flex", position:"absolute", marginTop: "10rem", marginLeft:"85rem"}}>PROCEED</Button> 
           </div>
               
         </div>
