@@ -17,6 +17,10 @@ import { useEffect } from 'react';
 import styled from '@emotion/styled';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCar } from '@fortawesome/free-solid-svg-icons';
+
+
+
+
 function Form({props, onClick, RecordViolation}) {
 
 
