@@ -11,6 +11,9 @@ const Profiles = () => {
 
   const [save, setSave] = useState(false)
   const [edit, setEdit] = useState(true)
+  const [pass, setPass] = useState(false)
+  const [passbtn, setPassBtn] = useState(true)
+  const [savePass, setSavePass] = useState(false)
 
   // get token
   const token = localStorage.getItem('token')
@@ -64,22 +67,51 @@ const Profiles = () => {
           </div>
           <div>
             <div style={{marginRight: 10, marginBottom: 20}}><InputBox   label="Engracia"></InputBox></div>
-            <div><InputBox type="password"  label="Password"></InputBox></div>
+            <div><InputBox disabled type="password"  label="Password"></InputBox></div>
           </div>
         </div>
         </>):null}
+
+        {pass ?(
+        <>
+        <div style={{position:"absolute", display:"flex", marginTop:"15rem", flexDirection:"column", width:"96%", alignItems:"center"}}>
+          <div>
+            <div style={{marginRight: 10, marginBottom: 20}}><InputBox type="password" label="Old Password"></InputBox></div>
+          </div>
+          <div>
+            <div style={{marginRight: 10, marginBottom: 20}}><InputBox type="password" label="New Password"></InputBox></div>
+          </div>
+          <div>
+            <div style={{marginRight: 10, marginBottom: 20}}><InputBox type="password" label="Confirm New Password"></InputBox></div>
+          </div>
+        </div>
+        </>):null}
+
+
         <div>
           {edit ? (
             <>
-              <div style={{marginTop:"12rem", marginLeft: "17rem"}}><Button onClick={() => setEdit(!edit) & setSave(!save)} variant='contained'>EDIT</Button></div>
+              <div style={{marginTop:"12rem", marginLeft: "17rem"}}><Button onClick={() => setEdit(!edit) & setSave(!save) & setPassBtn(!passbtn) } variant='contained'>EDIT</Button></div>
             </>
           ):null}
 
           {save ? (
             <>
-              <div style={{marginTop:"12rem", marginLeft: "17rem"}}><Button  style={{backgroundColor:"#00B050"}} onClick={() => setEdit(!edit) & setSave(!save)} variant='contained'>SAVE</Button></div>
+              <div style={{marginTop:"12rem", marginLeft: "17rem"}}><Button  style={{backgroundColor:"#00B050"}} onClick={() => setEdit(!edit) & setSave(!save) & setPassBtn(!passbtn)} variant='contained'>SAVE</Button></div>
             </>
           ):null}
+
+          {savePass ? (
+            <>
+              <div style={{marginTop:"12rem", marginLeft: "17rem"}}><Button  style={{backgroundColor:"#00B050"}} onClick={() => setSavePass(!savePass) & setPass(!pass) & setEdit(!edit) & setPassBtn(!passbtn) } variant='contained'>SAVE PASSWORD</Button></div>
+            </>
+          ):null}
+
+          {passbtn ? (
+            <>
+              <div style={{marginTop:"12rem", marginLeft: "17rem"}}><Button  style={{backgroundColor:"#00B050"}} onClick={() => setEdit(!edit) & setPass(!pass) & setSavePass(!savePass) & setPassBtn(!passbtn)} variant='contained'>UPADTE PASSWORD</Button></div>
+            </>
+          ): null}
           
           
         </div>
