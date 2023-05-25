@@ -15,7 +15,8 @@ import Fine from './options/Fine.json'
 import axios from 'axios';
 import { useEffect } from 'react';
 import styled from '@emotion/styled';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCar } from '@fortawesome/free-solid-svg-icons';
 function Form({props, onClick, RecordViolation}) {
 
 
@@ -39,23 +40,27 @@ function Form({props, onClick, RecordViolation}) {
     })
 
 
-    const selectTicket = localStorage.getItem('selectedViolations')
 
+    const selectTicket = localStorage.getItem('selectedViolations');
+    const violationList = selectTicket ? JSON.parse(selectTicket) : [];
+    
     useEffect(() => {
-        setTicket(prevTicket => ({
-          ...prevTicket,
-          driver: driverInfo.license_number
-        }));
-      }, [driverInfo.license_number]);
-      
+      setTicket((prevTicket) => ({
+        ...prevTicket,
+        driver: driverInfo.license_number,
+      }));
+    }, [driverInfo.license_number]);
+    
     const [ticket, setTicket] = useState({
-        "location": "",
-        "violation_type": selectTicket,
-        "fine_amount": 0,
-        "remarks": "Please be reminded to abide by traffic rules and regulations to ensure road safety. Have a safe journey ahead.",
-        "driver": driverInfo.license_number
-    })
-
+      location: '',
+      violation_type: selectTicket,
+      fine_amount: 0,
+      remarks:
+        'Please be reminded to abide by traffic rules and regulations to ensure road safety. Have a safe journey ahead.',
+      driver: driverInfo.license_number,
+    });
+    
+    const violationString = violationList.join(', '); // Convert the violations to a string separated by commas
 
     const handleGenderChange = (selectedOption) => {
         setDriverInfo({
@@ -86,6 +91,7 @@ function Form({props, onClick, RecordViolation}) {
           nationality: selectedOption.value
         });
     };        
+
 
     return (
         <div>
@@ -176,22 +182,22 @@ function Form({props, onClick, RecordViolation}) {
                             <div style={{marginRight: 20}}>
                                 <Button variant='contained' onClick={() => {
 
-                                    // get token 
-                                    // const token = localStorage.getItem('token')
-                                    // axios.post('http://localhost:8000/api/v1/tickets/drivers/', driverInfo, {
-                                    //     headers:{
-                                    //         "Authorization": `Token ${token}`
-                                    //     },
-                                    // }).then((response) => {
-                                    //     alert("Successfully added")
-                                    //     setDriver(!driver);
-                                    //     setViolation(!violation);
-                                    // }).catch((error) => {
-                                    //     console.log(error.response.data)  
-                                    //     alert("Please Try Again")                                    
-                                    // })
-                                    // setDriver(!driver)
-                                    // setViolation(!violation)
+                                    //get token 
+                                    const token = localStorage.getItem('token')
+                                    axios.post('http://localhost:8000/api/v1/tickets/drivers/', driverInfo, {
+                                        headers:{
+                                            "Authorization": `Token ${token}`
+                                        },
+                                    }).then((response) => {
+                                        alert("Successfully added")
+                                        setDriver(!driver);
+                                        setViolation(!violation);
+                                    }).catch((error) => {
+                                        console.log(error.response.data)  
+                                        alert("Please Try Again")                                    
+                                    })
+                                    setDriver(!driver)
+                                    setViolation(!violation)
 
 
 
@@ -209,7 +215,7 @@ function Form({props, onClick, RecordViolation}) {
                         <div style={{width:"107rem", display:"flex", justifyContent:"center"}}>
                             <h1>Details of apprehension</h1>
                         </div>
-                        <div style={{display:"flex", position:"absolute", marginLeft: "23rem", flexDirection:"row", marginTop: "12rem"}}>
+                        <div style={{display:"flex", position:"absolute", marginLeft: "23rem", flexDirection:"row", marginTop: "5rem"}}>
                             <div style={{marginRight: 20}}>
                                 <InputBox label="License Number" disabled={true} value={driverInfo.license_number}></InputBox>
                                 </div>                            
@@ -241,9 +247,34 @@ function Form({props, onClick, RecordViolation}) {
                                 <InputBox style={{width: "29.6rem"}} disabled variant='outlined' label="Remarks" value={ticket.remarks}></InputBox>
                                 </div>
                             </div> 
-                            <div style={{marginRight: 20, position:"absolute", display:"flex", marginTop: "14rem"}}>
-                                <InputBox style={{width: "29.6rem"}} disabled variant='outlined' label="Violation Type" value={selectTicket}></InputBox>
-                            </div> 
+                            <div
+                                style={{
+                                marginRight: 20,
+                                position: 'absolute',
+                                display: 'flex',
+                                marginTop: '14rem',
+                                flexDirection: 'column', // Set flex direction to column
+                                alignItems: 'flex-start', // Align items to the start of the column
+                                columnCount: 2, // Set the number of columns
+                                columnGap: '1rem', // Set the gap between columns
+                                fontSize: '17px',
+                                
+                                }}
+                            >
+                                <div style={{height:"auto", width:"61.5rem", borderRadius: 10, padding: 20, backgroundColor: "white",  boxShadow: "1px 1px 10px rgba(0, 0, 0, 1)"}}>
+                                {violationList.length > 0 ? (
+                                    <div style={{ height: 'auto', borderRadius: 10, padding: 20}}>
+                                    {violationList.map((violation, index) => (
+                                        <div key={index} style={{ marginBottom: '0.5rem', fontSize: 20 }}>
+                                        <FontAwesomeIcon icon={faCar} style={{ marginRight: 10, color: 'red' }} />{violation}
+                                        </div>
+                                    ))}
+                                    </div>
+                                ) : (
+                                    <div>No Violation Selected</div>
+                                )}
+                                </div>
+                            </div>
 
 
                         </div>
