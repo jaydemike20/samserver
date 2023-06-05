@@ -200,12 +200,14 @@ function Form({props, onClick, RecordViolation}) {
                                         console.log(error.response.data)  
                                         alert("Please Try Again")                                    
                                     })
-                                    setDriver(!driver)
-                                    setViolation(!violation)
 
-
-
-                                }} style={{ height: '55px', width: "15rem", backgroundColor: "#64DAFF" }}>NEXT</Button>                    
+                                }} style={{ height: '55px', width: "15rem", backgroundColor: "#64DAFF" }}>Next</Button>                    
+                            </div>
+                            <div style={{marginRight: 20}}>
+                                <Button variant='contained' style={{ height: '55px', width: "15rem", backgroundColor: "green" }} onClick={() => {
+                                        setDriver(!driver);
+                                        setViolation(!violation);                                    
+                                }}>Existing Violator</Button>                    
                             </div>
                         </div>
                     </>
@@ -221,7 +223,11 @@ function Form({props, onClick, RecordViolation}) {
                         </div>
                         <div style={{display:"flex", position:"absolute", marginLeft: "23rem", flexDirection:"row", marginTop: "5rem"}}>
                             <div style={{marginRight: 20}}>
-                                <InputBox label="License Number" disabled={true} value={driverInfo.license_number}></InputBox>
+                                <InputBox label="License Number" value={driverInfo.license_number} onChange={(event) => {
+                                                             setDriverInfo({
+                                                                ...driverInfo, license_number: event.target.value
+                                                            })
+                                }}></InputBox>
                                 </div>                            
                             <div style={{marginRight: 20}}>
                                 <TextField style={{width: "29.6rem", justifyContent:"center"}} variant='outlined' label="Location" className='InputLocation'
