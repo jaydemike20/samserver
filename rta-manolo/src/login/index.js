@@ -39,7 +39,7 @@ function Login({ setIsAuthenticated }) {
       navigation("/home")
 
     }).catch(error => {
-        alert("Eeekkkkkkkkkkkkkkk Error")
+        alert("Something is Wrong. Please Try Again")
     })
   }
 
@@ -69,8 +69,8 @@ function Login({ setIsAuthenticated }) {
         });
 
   }).catch(error => {
-      alert("Error Eeeeeekkkk")
-      console.log(error)
+    alert("Something is Wrong. Please Try Again")
+    console.log(error)
   })
 
 
