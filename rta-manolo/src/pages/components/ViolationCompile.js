@@ -7,6 +7,10 @@ import C1 from './../../Images/V1.png'
 import C2 from './../../Images/V2.png'
 import C3 from './../../Images/V3.png'
 import C4 from './../../Images/V4.png'
+import CheckBoxes from './CheckBoxes';
+import { Icon } from '@mui/material';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCar } from '@fortawesome/free-solid-svg-icons';
 
 
 function ViolationCompile(props) {
@@ -34,56 +38,56 @@ function ViolationCompile(props) {
     }
   };
 
+  const containerHeight = `${15 + selectedViolations.length * 4}%`;
+
     return (
         <div>
             <div style={{display:"flex", position:"absolute", flexDirection:"column", marginLeft: 75, marginTop:"10rem"}}>
+                <div style={{padding: 20, backgroundColor:"white", borderRadius: 10, boxShadow: "1px 1px 10px 1px  rgba(97, 167, 191, 0.5)", width: "25%", height: containerHeight, position:"fixed", marginLeft:"37%"}}>
+                  <div><h3 style={{textAlign:"center"}}>Selected Violations:</h3></div>
+                        {selectedViolations.map((violation, index) => (
+                          <div style={{marginBottom: 15, fontSize: 17}} key={index}>{<FontAwesomeIcon style={{marginRight: 10, color: "red"}} icon={faCar}></FontAwesomeIcon>}{violation}</div>
+                        ))}
+                </div>
                 <div>
                   <img src={C1}></img>
                 </div>
                 <div style={{marginLeft: 5}}>
                   <label>
-                    <input type="checkbox" value="Driving without a license in the Philippines " onChange={handleCheckboxChange} />
-                    Driving without a license in the Philippines
+                    <CheckBoxes type="checkbox" value="Driving without a license in the Philippines " title="Driving without a license in the Philippines" onChange={handleCheckboxChange} />
                   </label>
                   <br />
                   <label>
-                    <input type="checkbox" value="LTO penalty for not wearing seatbelt in the Philippines" onChange={handleCheckboxChange} />
-                    LTO penalty for not wearing seatbelt in the Philippines
+                    <CheckBoxes type="checkbox" value="LTO penalty for not wearing seatbelt in the Philippines" title="LTO penalty for not wearing seatbelt in the Philippines" onChange={handleCheckboxChange} />
                   </label>
                   <br />
                   <label>
-                    <input type="checkbox" value="Driving under the impact of alcohol/dangerous drugs" onChange={handleCheckboxChange} />
-                    Driving under the impact of alcohol/dangerous drugs
+                    <CheckBoxes type="checkbox" value="Driving under the impact of alcohol/dangerous drugs" title="Driving under the impact of alcohol/dangerous drugs" onChange={handleCheckboxChange} />
                   </label>
                   <br />                  
                   <label>
-                    <input type="checkbox" value="Careless driving " onChange={handleCheckboxChange} />
-                    Careless driving
+                    <CheckBoxes type="checkbox" value="Careless driving " title="Careless driving" onChange={handleCheckboxChange} />
                   </label>
                   <br />
                   <label>
-                    <input type="checkbox" value="Illegal parking fine" onChange={handleCheckboxChange} />
-                    Illegal parking fine
+                    <CheckBoxes type="checkbox" value="Illegal parking fine" title="Illegal parking fine" onChange={handleCheckboxChange} />
+
                   </label>
                   <br />
                   <label>
-                    <input type="checkbox" value="Disobeying traffic llights like beating the red light penalty" onChange={handleCheckboxChange} />
-                    Disobeying traffic llights like beating the red light penalty
+                    <CheckBoxes type="checkbox" value="Disobeying traffic llights like beating the red light penalty" title="Disobeying traffic llights like beating the red light penalty" onChange={handleCheckboxChange} />
                   </label> 
                   <br />                  
                   <label>
-                    <input type="checkbox" value="Driving in the prohibilited roads" onChange={handleCheckboxChange} />
-                    Driving in the prohibilited roads
+                    <CheckBoxes type="checkbox" value="Driving in the prohibilited roads" title="Driving in the prohibilited roads" onChange={handleCheckboxChange} />
                   </label>
                   <br />
                   <label>
-                    <input type="checkbox" value="Failure to darken the headlamps" onChange={handleCheckboxChange} />
-                    Failure to darken the headlamps
+                    <CheckBoxes type="checkbox" value="Failure to darken the headlamps" title="Failure to darken the headlamps" onChange={handleCheckboxChange} />
                   </label>
                   <br />                  
                   <label>
-                    <input type="checkbox" value="Illegal turn or overtaking" onChange={handleCheckboxChange} />
-                    Illegal turn or overtaking
+                    <CheckBoxes type="checkbox" value="Illegal turn or overtaking" title="Illegal turn or overtaking" onChange={handleCheckboxChange} />
                   </label> 
                 </div>
               </div>
@@ -93,67 +97,64 @@ function ViolationCompile(props) {
                 </div>
                 <div style={{marginLeft: 5}}>
                   <label>
-                    <input type="checkbox" value="Violation 1" onChange={handleCheckboxChange} />
-                    Violation 1
+                    <CheckBoxes type="checkbox" value="Illegal parking fine" title="Illegal parking fine" onChange={handleCheckboxChange} />
                   </label>
                   <br />
                   <label>
-                    <input type="checkbox" value="Violation 2" onChange={handleCheckboxChange} />
-                    Violation 2
+                    <CheckBoxes type="checkbox" value="Disobeying traffic lights like beating the red light penalty" title="Disobeying traffic lights like beating the red light penalty" onChange={handleCheckboxChange} />
                   </label>
                   <br />
                   <label>
-                    <input type="checkbox" value="Violation 3" onChange={handleCheckboxChange} />
-                    Violation 3
+                    <CheckBoxes type="checkbox" value="Driving in the prohibited roads" title="Driving in the prohibited roads" onChange={handleCheckboxChange} />
+                  </label>
+                  <br />
+                  <label>
+                    <CheckBoxes type="checkbox" value="Failure to darken the headlamps" title="Failure to darken the headlamps" onChange={handleCheckboxChange} />
+                  </label>
+                  <br />
+                  <label>
+                    <CheckBoxes type="checkbox" value="Illegal turn or overtaking" title="Illegal turn or overtaking" onChange={handleCheckboxChange} />
                   </label>
                 </div>
               </div>
 
-              <div style={{display:"flex", position:"absolute", flexDirection:"column", marginLeft: 75, marginTop:"80rem"}}>
+              <div style={{display:"flex", position:"absolute", flexDirection:"column", marginLeft: 75, marginTop:"85rem"}}>
                 <div>
                   <img src={C3}></img>
                 </div>
                 <div style={{marginLeft: 5}}>
                   <label>
-                    <input type="checkbox" value="Violation 1" onChange={handleCheckboxChange} />
-                    Violation 1
+                    <CheckBoxes type="checkbox" value="Driving without valid vehicle registration" title="Driving without valid vehicle registration" onChange={handleCheckboxChange} />
                   </label>
                   <br />
                   <label>
-                    <input type="checkbox" value="Violation 2" onChange={handleCheckboxChange} />
-                    Violation 2
+                    <CheckBoxes type="checkbox" value="Driving an illegally modified car" title="Driving an illegally modified car" onChange={handleCheckboxChange} />
                   </label>
                   <br />
                   <label>
-                    <input type="checkbox" value="Violation 3" onChange={handleCheckboxChange} />
-                    Violation 3
+                    <CheckBoxes type="checkbox" value="Running a right-hand car" title="Running a right-hand car" onChange={handleCheckboxChange} />
                   </label>
                 </div>
               </div>
 
-              <div style={{display:"flex", position:"absolute", flexDirection:"column", marginLeft: 75, marginTop:"105rem"}}>
+              <div style={{display:"flex", position:"absolute", flexDirection:"column", marginLeft: 75, marginTop:"110rem"}}>
                 <div>
                   <img src={C4}></img>
                 </div>
                 <div style={{marginLeft: 5}}>
                 <label>
-                  <input type="checkbox" value="Violation 1" onChange={handleCheckboxChange} />
-                  Violation 1
+                  <CheckBoxes type="checkbox" value="Driving a car without proper/authorized devices, equipment, accessories or car part" title="Driving a car without proper/authorized devices, equipment, accessories or car part" onChange={handleCheckboxChange} />
                 </label>
                 <br />
                 <label>
-                  <input type="checkbox" value="Violation 2" onChange={handleCheckboxChange} />
-                  Violation 2
+                  <CheckBoxes type="checkbox" value="Operating a car with an improper attachment/unauthorized of motor vehicle license plate" title="Operating a car with an improper attachment/unauthorized of motor vehicle license plate" onChange={handleCheckboxChange} />
                 </label>
                 <br />
                 <label>
-                  <input type="checkbox" value="Violation 3" onChange={handleCheckboxChange} />
-                  Violation 3
+                  <CheckBoxes type="checkbox" value="Smoke Belching" title="Smoke Belching" onChange={handleCheckboxChange} />
                 </label>
-                <h3>Selected Violations:</h3>
-                {selectedViolations.map((violation, index) => (
-                  <div key={index}>{violation}</div>
-                ))}
+                
+                
                 </div>
               </div>
         </div>

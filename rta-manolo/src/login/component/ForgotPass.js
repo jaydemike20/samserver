@@ -18,7 +18,7 @@ function ForgotPass({onClick}) {
 
     const handleSendEmail = () => {
         
-        axios.post("http://localhost:8000/api/v1/accounts/users/reset_password/", data).then(response => {
+        axios.post("https://jaydemike21.pythonanywhere.com/api/v1/accounts/users/reset_password/", data).then(response => {
             alert("Successfully Sent: Please check your email");
             setData({
                 email: "",
