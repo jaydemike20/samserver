@@ -28,7 +28,7 @@ function Login({ setIsAuthenticated }) {
   })
 
   const handleLogin = () => {
-    axios.post("http://localhost:8000/api/v1/accounts/token/login", data).then(response => {
+    axios.post("https://jaydemike21.pythonanywhere.com/api/v1/accounts/token/login", data).then(response => {
       // saving profile info in redux
       // dispatch(setToken(response.data.auth_token))
       // dispatch(setLogin());
@@ -54,7 +54,9 @@ function Login({ setIsAuthenticated }) {
 
   const handleRegistration = () => {
 
-    axios.post("http://localhost:8000/api/v1/accounts/users/", registerData).then(response => {
+    axios.post("https://jaydemike21.pythonanywhere.com/api/v1/accounts/users/", registerData, {
+      
+    }).then(response => {
 
       alert("Successfully Registered. Please check your email for confirmation")
       console.log(response.registerData);

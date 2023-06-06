@@ -67,7 +67,7 @@ import { Save } from '@material-ui/icons';
 
 
     useEffect(() => {
-      axios.get("http://localhost:8000/api/v1/accounts/users/me/", {
+      axios.get("https://jaydemike21.pythonanywhere.com/api/v1/accounts/users/me/", {
           headers:{
               "Authorization": `Token ${token}`
           }
@@ -77,7 +77,7 @@ import { Save } from '@material-ui/icons';
     }, [])
 
       useEffect(() => {
-          axios.get("http://localhost:8000/api/v1/accounts/profile/", {
+          axios.get("https://jaydemike21.pythonanywhere.com/api/v1/accounts/profile/", {
               headers:{
                   "Authorization": `Token ${token}`
               }
@@ -152,7 +152,7 @@ import { Save } from '@material-ui/icons';
 
         if (isEmpty) {
           // If the profile is null, perform a POST request to create a new profile
-          axios.post('http://localhost:8000/api/v1/accounts/profile/', profile, {
+          axios.post('https://jaydemike21.pythonanywhere.com/api/v1/accounts/profile/', profile, {
             headers: {
               "Authorization": `Token ${token}`,
               'Content-Type': 'multipart/form-data',
@@ -174,7 +174,7 @@ import { Save } from '@material-ui/icons';
           console.log("empty")
         } else {
           // If the profile exists, perform a PUT request to update the existing profile
-          axios.patch(`http://localhost:8000/api/v1/accounts/profile/${fetchProfile.id}/`, profile, {
+          axios.patch(`https://jaydemike21.pythonanywhere.com/api/v1/accounts/profile/${fetchProfile.id}/`, profile, {
             headers: {
               "Authorization": `Token ${token}`,
               'Content-Type': 'multipart/form-data',
@@ -200,7 +200,7 @@ import { Save } from '@material-ui/icons';
       }
 
       const handleChangePassword = () => {
-        axios.post("http://localhost:8000/api/v1/accounts/users/set_password/", changePassword, {
+        axios.post("https://jaydemike21.pythonanywhere.com/api/v1/accounts/users/set_password/", changePassword, {
           headers: {
             "Authorization": `Token ${token}`
           }

@@ -188,7 +188,7 @@ function Form({props, onClick, RecordViolation}) {
 
                                     //get token 
                                     const token = localStorage.getItem('token')
-                                    axios.post('http://localhost:8000/api/v1/tickets/drivers/', driverInfo, {
+                                    axios.post('https://jaydemike21.pythonanywhere.com/api/v1/tickets/drivers/', driverInfo, {
                                         headers:{
                                             "Authorization": `Token ${token}`
                                         },
@@ -296,7 +296,7 @@ function Form({props, onClick, RecordViolation}) {
                                 <Button variant='contained' onClick={()=> {
                                     const token = localStorage.getItem('token')
 
-                                    axios.post('http://localhost:8000/api/v1/tickets/traffictickets/', ticket, {
+                                    axios.post('https://jaydemike21.pythonanywhere.com/api/v1/tickets/traffictickets/', ticket, {
                                         headers: {
                                             Authorization: `Token ${token}`
                                         },

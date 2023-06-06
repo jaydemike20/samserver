@@ -18,7 +18,7 @@ const Search = () => {
 
 
 const handleSearch = () => {
-  axios.get(`http://localhost:8000/api/v1/tickets/drivers/${licenseNumber}/`, {
+  axios.get(`https://jaydemike21.pythonanywhere.com/api/v1/tickets/drivers/${licenseNumber}/`, {
     headers: {
       "Authorization": `Token ${token}`
     }
@@ -26,7 +26,7 @@ const handleSearch = () => {
     console.log(response.data);
     setDriver(response.data)
 
-      axios.get(`http://localhost:8000/api/v1/tickets/traffictickets/`, {
+      axios.get(`https://jaydemike21.pythonanywhere.com/api/v1/tickets/traffictickets/`, {
         headers: {
           "Authorization": `Token ${token}`
         }

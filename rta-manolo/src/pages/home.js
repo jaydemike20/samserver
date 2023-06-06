@@ -17,7 +17,7 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/v1/accounts/users/me/", {
+      .get("https://jaydemike21.pythonanywhere.com/api/v1/accounts/users/me/", {
         headers: {
           "Authorization": `Token ${token}`
         }
@@ -30,7 +30,7 @@ const Home = () => {
       });
 
     axios
-      .get("http://localhost:8000/api/v1/accounts/profile/", {
+      .get("https://jaydemike21.pythonanywhere.com/api/v1/accounts/profile/", {
         headers: {
           "Authorization": `Token ${token}`
         }

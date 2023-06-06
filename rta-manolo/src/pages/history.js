@@ -11,19 +11,9 @@ function History(props) {
   const token = localStorage.getItem('token');
   const [violators, setViolators] = useState([]);
 
-//   useEffect(() => {
-//     axios.get("http://localhost:8000/api/v1/tickets/traffictickets/", {
-//       headers: {
-//         "Authorization": `Token ${token}`
-//       }
-//     }).then(response => {
-//         setViolators(response.data)
-//         console.log(response.data)
-//     });
-//   }, []);
   
 useEffect(() => {
-    axios.get("http://localhost:8000/api/v1/tickets/traffictickets/", {
+    axios.get("https://jaydemike21.pythonanywhere.com/api/v1/tickets/traffictickets/", {
       headers: {
         "Authorization": `Token ${token}`
       }
@@ -41,7 +31,7 @@ useEffect(() => {
         // Fetch driver information for each primary key
         Promise.all(
           driverPKs.map(pk =>
-            axios.get(`http://localhost:8000/api/v1/tickets/drivers/${pk}/`, {
+            axios.get(`https://jaydemike21.pythonanywhere.com/api/v1/tickets/drivers/${pk}/`, {
               headers: {
                 "Authorization": `Token ${token}`
               }
