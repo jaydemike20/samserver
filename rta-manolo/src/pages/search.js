@@ -82,7 +82,7 @@ const handleClear = () => {
             </div>
             <div>
             <TableContainer>
-              <Table sx={{ minWidth: 650}} aria-label="simple table">
+              <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                   <TableRow>
                     <TableCell align="center">Violation Type</TableCell>
@@ -92,17 +92,34 @@ const handleClear = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {driverViolations.slice().reverse().map((violator, index) => (
-                    <TableRow key={index}>
-                      <TableCell align="center">{violator.violation_type}</TableCell>
-                      <TableCell align="center">{violator.location}</TableCell>
-                      <TableCell align="center">{violator.issued}</TableCell>
-                      <TableCell align="center">{violator.fine_amount}</TableCell>
-                    </TableRow>
-                  ))}
+                  {driverViolations.slice().reverse().map((violator, index) => {
+                    const violationTypes = violator.violation_type
+                      .replace('[', '')
+                      .replace(']', '')
+                      .split(',')
+                      .map((type) => type.trim());
+                      
+                    const violationList = violationTypes.map((type, typeIndex) => (
+                      <div key={`${violator.driver}-${typeIndex}`} style={{ marginBottom: '4px' }}>
+                        <span style={{ paddingRight: '8px' }}>{typeIndex + 1}.</span>
+                        <span>{type}</span>
+                      </div>
+                    ));
+
+                    return (
+                      <TableRow key={index}>
+                        <TableCell >{violationList}</TableCell>
+                        <TableCell align="center">{violator.location}</TableCell>
+                        <TableCell align="center">{violator.issued}</TableCell>
+                        <TableCell align="center">{violator.fine_amount}</TableCell>
+                      </TableRow>
+                    );
+                  })}
                 </TableBody>
+
               </Table>
             </TableContainer>
+
 
 
 
