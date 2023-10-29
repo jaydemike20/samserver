@@ -5,7 +5,7 @@ import ProfilePic from './../Images/profile.png';
 import { Button } from '@mui/material';
 import ViolationCompile from './components/ViolationCompile';
 import Form from './components/Form';
-import axios from 'axios';
+import axios from '../plugins/axios';
 
 const Home = () => {
   // get token
@@ -17,7 +17,7 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get("https://jaydemike21.pythonanywhere.com/api/v1/accounts/users/me/", {
+      .get("accounts/users/me/", {
         headers: {
           "Authorization": `Token ${token}`
         }
@@ -30,7 +30,7 @@ const Home = () => {
       });
 
     axios
-      .get("https://jaydemike21.pythonanywhere.com/api/v1/accounts/profile/", {
+      .get("accounts/profile/", {
         headers: {
           "Authorization": `Token ${token}`
         }
@@ -82,9 +82,14 @@ const Home = () => {
             <ViolationCompile />
           </div>
           <div style={{ position: "fixed", display: "absolute", marginLeft: 10 }}>
-            <Button variant='contained' onClick={() => setShow(!show)} style={{height: 60, width: "10rem", backgroundColor:'#64DAFF', display:"flex", position:"absolute", marginTop: "10rem", marginLeft:"85rem"}}>PROCEED</Button> 
+            <Button variant='contained' onClick={() => setShow(!show)} style={{height: 60, width: "10rem", backgroundColor:'blue', display:"flex", position:"absolute", marginTop: "10rem", marginLeft:"85rem"}}>PROCEED</Button> 
           </div>
-              
+          <div style={{ position: "fixed", display: "absolute", marginLeft: 10, marginTop: 70 }}>
+            <Button variant='contained' onClick={() => {
+              localStorage.removeItem('selectedViolations');
+              window.location.reload()
+            }} style={{height: 60, width: "10rem", backgroundColor:'red', display:"flex", position:"absolute", marginTop: "10rem", marginLeft:"85rem"}}>Cancel</Button> 
+          </div>         
         </div>
       </div>
     </>

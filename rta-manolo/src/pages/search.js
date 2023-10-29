@@ -5,7 +5,7 @@ import { Button, TextField } from '@mui/material';
 import { SearchOutlined } from '@material-ui/icons';
 import PlateTextField from './components/PlateTextField';
 import SearchViolation from './components/SearchViolation';
-import axios from 'axios';
+import axios from '../plugins/axios';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 
 const Search = () => {
@@ -18,7 +18,7 @@ const Search = () => {
 
 
 const handleSearch = () => {
-  axios.get(`https://jaydemike21.pythonanywhere.com/api/v1/tickets/drivers/${licenseNumber}/`, {
+  axios.get(`tickets/drivers/${licenseNumber}/`, {
     headers: {
       "Authorization": `Token ${token}`
     }
@@ -26,7 +26,7 @@ const handleSearch = () => {
     console.log(response.data);
     setDriver(response.data)
 
-      axios.get(`https://jaydemike21.pythonanywhere.com/api/v1/tickets/traffictickets/`, {
+      axios.get(`tickets/traffictickets/`, {
         headers: {
           "Authorization": `Token ${token}`
         }
@@ -65,7 +65,7 @@ const handleClear = () => {
           <h1>ENTER LICENSE NUMBER</h1>
         </div>
         <div style={{position:"absolute", display:"flex", marginTop: "5rem", marginLeft:"-30rem"}}>
-        <PlateTextField value={licenseNumber} onChange={(event) => {
+        <PlateTextField placeholder="XXX-XX-XXXXXX" value={licenseNumber} onChange={(event) => {
           setLicenseNumber(event.target.value)
         }}></PlateTextField>
       </div>

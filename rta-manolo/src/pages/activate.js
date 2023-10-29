@@ -1,12 +1,12 @@
 
-import axios from "axios";
+import axios from "../plugins/axios";
 
 
 
 const activateAccount = async (uid, token) => {
 
     try {
-      const response = await axios.post('https://jaydemike21.pythonanywhere.com/api/v1/accounts/users/activation/', {
+      const response = await axios.post('accounts/users/activation/', {
         uid: uid,
         token: token,
       });

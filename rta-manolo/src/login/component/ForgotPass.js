@@ -3,7 +3,7 @@ import { Button } from '@mui/material';
 import InputBox from './InputBox';
 import bg from './../../Images/bg.png'
 import { useState } from 'react';
-import axios from 'axios'
+import axios from '../../../src/plugins/axios'
 import { useNavigate } from 'react-router-dom';
 
 function ForgotPass({onClick}) {
@@ -18,7 +18,7 @@ function ForgotPass({onClick}) {
 
     const handleSendEmail = () => {
         
-        axios.post("https://jaydemike21.pythonanywhere.com/api/v1/accounts/users/reset_password/", data).then(response => {
+        axios.post("accounts/users/reset_password/", data).then(response => {
             alert("Successfully Sent: Please check your email");
             setData({
                 email: "",
@@ -26,6 +26,7 @@ function ForgotPass({onClick}) {
             window.location.reload();
         }).catch(error => {
             alert("Error eek")
+            console.log(error)
         })
 
     }

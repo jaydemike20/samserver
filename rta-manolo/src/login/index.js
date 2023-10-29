@@ -9,7 +9,7 @@ import KeyIcon from '@mui/icons-material/Key';
 import Images from './../Images/people.png'
 import { Button, TextField } from '@mui/material';
 import ForgotPass from './component/ForgotPass';
-import axios from 'axios'
+import axios from '../../src/plugins/axios'
 import { useEffect } from 'react';
 
 function Login({ setIsAuthenticated }) {
@@ -28,7 +28,7 @@ function Login({ setIsAuthenticated }) {
   })
 
   const handleLogin = () => {
-    axios.post("https://jaydemike21.pythonanywhere.com/api/v1/accounts/token/login", data).then(response => {
+    axios.post("accounts/token/login", data).then(response => {
       // saving profile info in redux
       // dispatch(setToken(response.data.auth_token))
       // dispatch(setLogin());
@@ -54,7 +54,7 @@ function Login({ setIsAuthenticated }) {
 
   const handleRegistration = () => {
 
-    axios.post("https://jaydemike21.pythonanywhere.com/api/v1/accounts/users/", registerData, {
+    axios.post("accounts/users/", registerData, {
       
     }).then(response => {
 

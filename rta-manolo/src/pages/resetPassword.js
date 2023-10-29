@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import axios from "../plugins/axios";
 import { useNavigate, useParams } from "react-router-dom";
 
 const ResetPassword = () => {
@@ -20,7 +20,7 @@ const ResetPassword = () => {
     }
   
     try {
-      const response = await axios.post("https://jaydemike21.pythonanywhere.com/api/v1/accounts/users/reset_password_confirm/", {
+      const response = await axios.post("accounts/users/reset_password_confirm/", {
         uid,
         token,
         new_password,

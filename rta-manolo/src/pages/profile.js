@@ -5,7 +5,7 @@ import Profile from './../Images/profile.png'
 import InputBox from './../login/component/InputBox'
 import { Button, FormHelperText, Icon } from '@mui/material';
 import People from './../Images/people.png'
-import axios from 'axios';
+import axios from '../plugins/axios';
 import 'react-datepicker/dist/react-datepicker.css';
 import EditIcon from '@material-ui/icons/Edit';
 import LockIcon from '@material-ui/icons/Lock';
@@ -67,7 +67,7 @@ import { Save } from '@material-ui/icons';
 
 
     useEffect(() => {
-      axios.get("https://jaydemike21.pythonanywhere.com/api/v1/accounts/users/me/", {
+      axios.get("accounts/users/me/", {
           headers:{
               "Authorization": `Token ${token}`
           }
@@ -77,7 +77,7 @@ import { Save } from '@material-ui/icons';
     }, [])
 
       useEffect(() => {
-          axios.get("https://jaydemike21.pythonanywhere.com/api/v1/accounts/profile/", {
+          axios.get("accounts/profile/", {
               headers:{
                   "Authorization": `Token ${token}`
               }
@@ -152,7 +152,7 @@ import { Save } from '@material-ui/icons';
 
         if (isEmpty) {
           // If the profile is null, perform a POST request to create a new profile
-          axios.post('https://jaydemike21.pythonanywhere.com/api/v1/accounts/profile/', profile, {
+          axios.post('accounts/profile/', profile, {
             headers: {
               "Authorization": `Token ${token}`,
               'Content-Type': 'multipart/form-data',
@@ -174,7 +174,7 @@ import { Save } from '@material-ui/icons';
           console.log("empty")
         } else {
           // If the profile exists, perform a PUT request to update the existing profile
-          axios.patch(`https://jaydemike21.pythonanywhere.com/api/v1/accounts/profile/${fetchProfile.id}/`, profile, {
+          axios.patch(`accounts/profile/${fetchProfile.id}/`, profile, {
             headers: {
               "Authorization": `Token ${token}`,
               'Content-Type': 'multipart/form-data',
@@ -200,15 +200,27 @@ import { Save } from '@material-ui/icons';
       }
 
       const handleChangePassword = () => {
-        axios.post("https://jaydemike21.pythonanywhere.com/api/v1/accounts/users/set_password/", changePassword, {
+        axios.post("accounts/users/set_password/", changePassword, {
           headers: {
             "Authorization": `Token ${token}`
           }
         }).then((response) => {
           alert("Your Password Successfully Changed");
+          
+          setChangePassword({
+            new_password: '',
+            re_new_password: '',
+            current_password: ''            
+          })
 
         }).catch((error) => {
-          alert("There is something wrong");
+          alert("There is something wrong.. Please Try Again");
+                    
+          setChangePassword({
+            new_password: '',
+            re_new_password: '',
+            current_password: ''            
+          })
 
         })
 

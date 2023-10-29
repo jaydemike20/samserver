@@ -5,7 +5,7 @@ import Chart from './components/Chart';
 import Legend from './components/Legend';
 import TotalViolation from './components/TotalViolation';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from '@mui/material';
-import axios from 'axios';
+import axios from '../plugins/axios';
 
 function History(props) {
   const token = localStorage.getItem('token');
@@ -13,7 +13,7 @@ function History(props) {
 
   
 useEffect(() => {
-    axios.get("https://jaydemike21.pythonanywhere.com/api/v1/tickets/traffictickets/", {
+    axios.get("tickets/traffictickets/", {
       headers: {
         "Authorization": `Token ${token}`
       }
@@ -31,7 +31,7 @@ useEffect(() => {
         // Fetch driver information for each primary key
         Promise.all(
           driverPKs.map(pk =>
-            axios.get(`https://jaydemike21.pythonanywhere.com/api/v1/tickets/drivers/${pk}/`, {
+            axios.get(`tickets/drivers/${pk}/`, {
               headers: {
                 "Authorization": `Token ${token}`
               }
@@ -84,7 +84,7 @@ useEffect(() => {
           <div style={{ backgroundColor: "white", width: "94rem", height: "48.6rem", display: "flex", position: "absolute", marginTop: "5rem", borderRadius: 20, padding: 30, flexDirection: "column" }}>
           <div style={{backgroundColor:"white", position:"fixed", width:"75%", padding: 10}}>
               <TextField
-                        label="Search"
+                        label="Search License Number"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         style={{width: "20rem"}}
