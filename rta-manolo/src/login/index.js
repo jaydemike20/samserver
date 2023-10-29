@@ -88,11 +88,11 @@ function Login({ setIsAuthenticated }) {
 
     return (
       <div>
-        {show ? (
+        {/* {show ? (
           <>
           <ForgotPass onClick={() => setShow(!show)}></ForgotPass>
           </>
-        ): null}
+        ): null} */}
         
         <body className='container'>
           {/*Black Container*/}
@@ -172,7 +172,7 @@ function Login({ setIsAuthenticated }) {
                     </div>
                     <div style={{display:"flex", flexDirection:"column"}}>
                       <Button onClick={handleLogin} className='SignIn' variant='contained'>Sign In</Button>
-                      <Button onClick={() => setShow(!show)} style={{marginBottom: 30, marginTop: 30}}>Forgot Password?</Button>
+                      {/* <Button onClick={() => setShow(!show)} style={{marginBottom: 30, marginTop: 30}}>Forgot Password?</Button> */}
                     </div>
                   </div>
                   }

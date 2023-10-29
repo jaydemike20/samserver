@@ -2,7 +2,7 @@ import React from "react";
 import { Route as ReactRouterRoute, Navigate } from "react-router-dom";
 
 const CustomRoute = ({ path, element }) => {
-  const basename = "/samserver"; // Your basename
+  const basename = "/"; // Your basename
 
   if (path.startsWith("/")) {
     path = `${basename}${path}`;
