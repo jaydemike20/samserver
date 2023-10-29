@@ -24,7 +24,7 @@ function App() {
 
   return (
     <div className="app">
-      <Routes>
+      <Routes exact path='/'>
         <Route path="/" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
         <Route path="/home" element={isAuthenticated ? <Home /> : <Navigate to="/" replace />} />
         <Route path="/history" element={isAuthenticated ? <History /> : <Navigate to="/" replace />} />
