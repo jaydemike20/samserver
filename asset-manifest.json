@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/samserver/static/css/main.0ac575f2.css",
-    "main.js": "/samserver/static/js/main.d9d858b3.js",
+    "main.js": "/samserver/static/js/main.77dbfed4.js",
     "static/js/787.e075fb1b.chunk.js": "/samserver/static/js/787.e075fb1b.chunk.js",
     "static/media/bg.png": "/samserver/static/media/bg.147c8f9c24f6b4b25c19.png",
     "static/media/people.png": "/samserver/static/media/people.d3f45e498ed0d8ed1062.png",
@@ -9,11 +9,11 @@
     "static/media/V2.png": "/samserver/static/media/V2.3ab6527fa66d36d306b8.png",
     "index.html": "/samserver/index.html",
     "main.0ac575f2.css.map": "/samserver/static/css/main.0ac575f2.css.map",
-    "main.d9d858b3.js.map": "/samserver/static/js/main.d9d858b3.js.map",
+    "main.77dbfed4.js.map": "/samserver/static/js/main.77dbfed4.js.map",
     "787.e075fb1b.chunk.js.map": "/samserver/static/js/787.e075fb1b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.0ac575f2.css",
-    "static/js/main.d9d858b3.js"
+    "static/js/main.77dbfed4.js"
   ]
 }
