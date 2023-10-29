@@ -87,7 +87,6 @@ const Home = () => {
           <div style={{ position: "fixed", display: "absolute", marginLeft: 10, marginTop: 70 }}>
             <Button variant='contained' onClick={() => {
               localStorage.removeItem('selectedViolations');
-              window.location.reload()
             }} style={{height: 60, width: "10rem", backgroundColor:'red', display:"flex", position:"absolute", marginTop: "10rem", marginLeft:"85rem"}}>Cancel</Button> 
           </div>         
         </div>
